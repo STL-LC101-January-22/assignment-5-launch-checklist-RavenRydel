@@ -37,14 +37,17 @@ function validateInput(testInput) {
     let massOfCargo = document.querySelector("input[name=cargoMass]");
     
     if(testInput === ""){
-        return alert("Empty");
+        alert("Empty");
+        return false;
     } else if(!isNaN(testInput)){
         if(testInput === nameOfPilot.value || testInput === nameOfCopilot.value){
-            return alert("Is a Number");
+            alert("Is a Number");
+            return false;
         }
     } else if(isNaN(testInput)){
         if(testInput === levelOfFuel.value || testInput === massOfCargo.value){
-            return alert("Not a Number");
+            alert("Not a Number");
+            return false;
         }
     }
 }
@@ -58,31 +61,25 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     
     let launchReady = document.getElementById("launchStatus");
     
-    validateInput(pilot);
-    validateInput(copilot);
-    validateInput(fuelLevel);
-    validateInput(cargoLevel);
-
-    statusOfPilot.textContent = `Pilot ${pilot} is ready for launch`;
-    statusOfCopilot.textContent = `Co-pilot ${copilot} is ready for launch`;
-
-    if(pilot === "" || copilot === "" || fuelLevel === "" ||  cargoLevel === ""){
+    if(validateInput(pilot) === false || validateInput(copilot) === false || validateInput(fuelLevel) === false || validateInput(cargoLevel) === false){
         return false;
-
+        
     } else if(fuelLevel < 10000){
         list.style.visibility = "visible";
         statusOfFuelLevel.textContent = "Fuel level too low for launch";
         launchReady.style.color = "rgb(199, 37, 78)";
         launchReady.textContent = "Shuttle not ready for launch";
-
+        
     } else if(cargoLevel > 10000){
         list.style.visibility = "visible";
         statusOfCargoLevel.textContent = "Cargo mass too heavy for launch";
         launchReady.style.color = "rgb(199, 37, 78)";
         launchReady.textContent = "Shuttle not ready for launch";
-
+        
     } else{
         list.style.visibility = "visible";
+        statusOfPilot.textContent = `Pilot ${pilot} is ready for launch`;
+        statusOfCopilot.textContent = `Co-pilot ${copilot} is ready for launch`;
         launchReady.style.color = "rgb(65, 159, 106)";
         launchReady.textContent = "Shuttle is Ready for Launch";
     }
