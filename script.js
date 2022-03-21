@@ -1,5 +1,6 @@
 // Write your JavaScript code here!
 
+
 window.addEventListener("load", function() {
 
    let listedPlanets;
@@ -17,4 +18,17 @@ window.addEventListener("load", function() {
        addDestinationInfo(missionTarget, planet.name, planet.diameter, planet.star, planet.distance, planet.moons, planet.image);
    })
    
+   this.document.getElementById("formSubmit").addEventListener("click", function(event){
+        let nameOfPilot = document.querySelector("input[name=pilotName]");
+        let nameOfCopilot = document.querySelector("input[name=copilotName]");
+        let levelOfFuel = document.querySelector("input[name=fuelLevel]");
+        let massOfCargo = document.querySelector("input[name=cargoMass]");
+
+        validateInput(nameOfPilot.value);
+        validateInput(nameOfCopilot.value);
+        validateInput(levelOfFuel.value);
+        validateInput(massOfCargo.value);
+
+       event.preventDefault();
+   })
 });
