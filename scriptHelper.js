@@ -60,26 +60,39 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let statusOfCargoLevel = document.getElementById("cargoStatus");
     
     let launchReady = document.getElementById("launchStatus");
-    
+
     if(validateInput(pilot) === false || validateInput(copilot) === false || validateInput(fuelLevel) === false || validateInput(cargoLevel) === false){
         return false;
-        
+
     } else if(fuelLevel < 10000){
         list.style.visibility = "visible";
+        
+        statusOfPilot.textContent = `Pilot ${pilot} is ready for launch`;
+        statusOfCopilot.textContent = `Co-pilot ${copilot} is ready for launch`;
+
         statusOfFuelLevel.textContent = "Fuel level too low for launch";
         launchReady.style.color = "rgb(199, 37, 78)";
         launchReady.textContent = "Shuttle not ready for launch";
-        
+
     } else if(cargoLevel > 10000){
         list.style.visibility = "visible";
-        statusOfCargoLevel.textContent = "Cargo mass too heavy for launch";
-        launchReady.style.color = "rgb(199, 37, 78)";
-        launchReady.textContent = "Shuttle not ready for launch";
-        
-    } else{
-        list.style.visibility = "visible";
+
         statusOfPilot.textContent = `Pilot ${pilot} is ready for launch`;
         statusOfCopilot.textContent = `Co-pilot ${copilot} is ready for launch`;
+        
+        statusOfCargoLevel.textContent = "Cargo mass too heavy for launch"; 
+        launchReady.style.color = "rgb(199, 37, 78)";
+        launchReady.textContent = "Shuttle not ready for launch";
+
+    } else{
+        list.style.visibility = "visible";
+
+        statusOfPilot.textContent = `Pilot ${pilot} is ready for launch`;
+        statusOfCopilot.textContent = `Co-pilot ${copilot} is ready for launch`;
+        
+        statusOfFuelLevel.textContent = "Fuel level high enough for launch";
+        statusOfCargoLevel.textContent = "Cargo mass low enough for launch";
+        
         launchReady.style.color = "rgb(65, 159, 106)";
         launchReady.textContent = "Shuttle is Ready for Launch";
     }
