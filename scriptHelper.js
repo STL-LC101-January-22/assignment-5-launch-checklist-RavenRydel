@@ -30,10 +30,12 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 
 function validateInput(testInput) {
+    
     let nameOfPilot = document.querySelector("input[name=pilotName]");
     let nameOfCopilot = document.querySelector("input[name=copilotName]");
     let levelOfFuel = document.querySelector("input[name=fuelLevel]");
     let massOfCargo = document.querySelector("input[name=cargoMass]");
+    
     if(testInput === ""){
         return alert("Empty");
     } else if(!isNaN(testInput)){
@@ -48,23 +50,42 @@ function validateInput(testInput) {
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-
+    
+    let statusOfPilot = document.getElementById("pilotStatus");
+    let statusOfCopilot = document.getElementById("copilotStatus");
+    let statusOfFuelLevel = document.getElementById("fuelStatus");
+    let statusOfCargoLevel = document.getElementById("cargoStatus");
+    
+    let launchReady = document.getElementById("launchStatus");
+    
     validateInput(pilot);
     validateInput(copilot);
     validateInput(fuelLevel);
     validateInput(cargoLevel);
 
-    document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
-    document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
+    statusOfPilot.textContent = `Pilot ${pilot} is ready for launch`;
+    statusOfCopilot.textContent = `Co-pilot ${copilot} is ready for launch`;
 
-    if(fuelLevel < 10000){
+    if(pilot === "" || copilot === "" || fuelLevel === "" ||  cargoLevel === ""){
+        return false;
+
+    } else if(fuelLevel < 10000){
         list.style.visibility = "visible";
-        document.getElementById("fuelStatus").innerHTML = "Fuel level too low for launch";
-        document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
-        document.getElementById("launchStatus").style.color = rgb(199, 37, 78);
+        statusOfFuelLevel.textContent = "Fuel level too low for launch";
+        launchReady.style.color = "rgb(199, 37, 78)";
+        launchReady.textContent = "Shuttle not ready for launch";
+
+    } else if(cargoLevel > 10000){
+        list.style.visibility = "visible";
+        statusOfCargoLevel.textContent = "Cargo mass too heavy for launch";
+        launchReady.style.color = "rgb(199, 37, 78)";
+        launchReady.textContent = "Shuttle not ready for launch";
+
+    } else{
+        list.style.visibility = "visible";
+        launchReady.style.color = "rgb(65, 159, 106)";
+        launchReady.textContent = "Shuttle is Ready for Launch";
     }
-
-
 }
 
 async function myFetch() {
