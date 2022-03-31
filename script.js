@@ -9,6 +9,7 @@ window.addEventListener("load", function() {
     let massOfCargo = document.querySelector("input[name=cargoMass]");
     
     let listOfFaultyItems = document.getElementById("faultyItems");
+    listOfFaultyItems.style.visibility = "hidden";
     
    let listedPlanets;
    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
@@ -21,8 +22,7 @@ window.addEventListener("load", function() {
        // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
        let planet = pickPlanet(listedPlanets);
        
-       const missionTarget = document.getElementById("missionTarget");
-       addDestinationInfo(missionTarget, planet.name, planet.diameter, planet.star, planet.distance, planet.moons, planet.image);
+       addDestinationInfo(document, planet.name, planet.diameter, planet.star, planet.distance, planet.moons, planet.image);
    })
    
    this.document.getElementById("formSubmit").addEventListener("click", function(event){
